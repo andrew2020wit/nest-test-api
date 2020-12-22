@@ -13,12 +13,12 @@ export class EntityController {
 
   @Get(':entityKind')
   findAll(@Param() params) {
-    return this.entityService.findAll(params.entityKind);
+    return this.entityService.getAllEntities(params.entityKind);
   }
 
   @Get(':entityKind/:id')
   findOne(@Param() params) {
-    return this.entityService.findOne(params.entityKind, params.id);
+    return this.entityService.getEntity(params.entityKind, params.id);
   }
 
   // @Put(':id')

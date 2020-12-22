@@ -1,37 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { crudRestApiData, EntityKind } from './crud-rest-api.data';
 
 @Injectable()
 export class CrudRestApiService {
-  data: EntityKind[];
+  data = new Map<string, Map<string, any>>();
 
   constructor() {
-    this.data = crudRestApiData;
+    this.setEntity('entityA', '1', { id: '1', name: 'bob', age: 14 });
+    this.setEntity('entityA', '2', { id: '2', name: 'jon', age: 24 });
   }
 
   // create(entity: any) {
   //   return 'This action adds a new entity';
   // }
-
-  findAll(entityKind: string) {
-    const c = this.getEntityKind(entityKind);
-    // console.log('c', c);
-    if (c) {
-      return c.entities;
-    } else {
-      return [];
-    }
-  }
-
-  findOne(entityKind: string, id: string) {
-    const k = this.getEntityKind(entityKind);
-    if (!k) {
-      return null;
-    }
-    return k.entities.find((x) => {
-      return x.id === id;
-    });
-  }
 
   // update(id: string, updateEntityDto: any) {
   //   return `This action updates a #${id} entity`;
@@ -41,11 +21,32 @@ export class CrudRestApiService {
   //   return `This action removes a #${id} entity`;
   // }
 
-  getEntityKind(kind) {
-    // console.log('kind', kind);
+  setEntity(kind: string, id: string, value: any) {
+    let map = this.data.get(kind);
+    if (!map) {
+      map = new Map<string, any>();
+      this.data.set(kind, map);
+    }
+    map.set(id, value);
+  }
 
-    return this.data.find((entityKind) => {
-      return entityKind.entityKind === kind;
+  getEntity(kind: string, id: string) {
+    const map = this.data.get(kind);
+    if (!map) {
+      return null;
+    }
+    return map.get(id);
+  }
+
+  getAllEntities(kind: string) {
+    const map = this.data.get(kind);
+    if (!map) {
+      return [];
+    }
+    const result: any[] = [];
+    map.forEach((value) => {
+      result.push(value);
     });
+    return result;
   }
 }

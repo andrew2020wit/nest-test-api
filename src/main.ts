@@ -6,5 +6,6 @@ async function bootstrap() {
     cors: true,
   });
   await app.listen(3000);
+  console.log('=== Api test server is running! === ');
 }
 bootstrap();
