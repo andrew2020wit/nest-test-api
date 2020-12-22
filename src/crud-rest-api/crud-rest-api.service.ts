@@ -120,4 +120,17 @@ export class CrudRestApiService {
     result.ok = true;
     return result;
   }
+
+  initKind(kind: string, values: any[]) {
+    const result = new ResponseDto(`initKind: ${kind}`);
+    result.ok = true;
+    values.forEach((value) => {
+      const res = this.createEntity(kind, value);
+      if (!res.ok) {
+        result.ok = false;
+        result.message = res.message;
+      }
+    });
+    return result;
+  }
 }

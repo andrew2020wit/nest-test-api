@@ -10,9 +10,9 @@ import {
 import { waiter } from 'src/utils/waitre';
 import { CrudRestApiService } from './crud-rest-api.service';
 
-// http://localhost:3000/api/crud-rest/1000/user/
+// http://localhost:3000/api/main/crud-rest/1000/user/
 // delay - max - 3000ms
-@Controller('api/crud-rest')
+@Controller('api/main/crud-rest')
 export class EntityController {
   constructor(private readonly entityService: CrudRestApiService) {}
 
