@@ -1,15 +1,23 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CrudRestApiService } from './crud-rest-api.service';
 
-// http://localhost:3000/api/crud-rest/entityA/
+// http://localhost:3000/api/crud-rest/user/
 @Controller('api/crud-rest')
 export class EntityController {
   constructor(private readonly entityService: CrudRestApiService) {}
 
-  // @Post()
-  // create(@Body() createEntityDto: any) {
-  //   return this.entityService.create(createEntityDto);
-  // }
+  @Post(':entityKind')
+  create(@Param() params, @Body() createEntityDto: any) {
+    return this.entityService.createEntity(params.entityKind, createEntityDto);
+  }
 
   @Get(':entityKind')
   findAll(@Param() params) {
@@ -21,13 +29,17 @@ export class EntityController {
     return this.entityService.getEntity(params.entityKind, params.id);
   }
 
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body() updateEntityDto: any) {
-  //   return this.entityService.update(+id, updateEntityDto);
-  // }
+  @Put(':entityKind/:id')
+  update(@Param() params, @Body() updateEntityDto: any) {
+    return this.entityService.updateEntity(
+      params.entityKind,
+      params.id,
+      updateEntityDto,
+    );
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.entityService.remove(+id);
-  // }
+  @Delete(':entityKind/:id')
+  remove(@Param() params) {
+    return this.entityService.deleteEntity(params.entityKind, params.id);
+  }
 }
