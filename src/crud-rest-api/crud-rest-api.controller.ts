@@ -7,30 +7,36 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { waiter } from 'src/utils/waitre';
 import { CrudRestApiService } from './crud-rest-api.service';
 
-// http://localhost:3000/api/crud-rest/user/
+// http://localhost:3000/api/crud-rest/1000/user/
+// delay - max - 3000ms
 @Controller('api/crud-rest')
 export class EntityController {
   constructor(private readonly entityService: CrudRestApiService) {}
 
-  @Post(':entityKind')
-  create(@Param() params, @Body() createEntityDto: any) {
+  @Post(':delay/:entityKind')
+  async create(@Param() params, @Body() createEntityDto: any) {
+    await waiter(params.delay);
     return this.entityService.createEntity(params.entityKind, createEntityDto);
   }
 
-  @Get(':entityKind')
-  findAll(@Param() params) {
+  @Get(':delay/:entityKind')
+  async findAll(@Param() params) {
+    await waiter(params.delay);
     return this.entityService.getAllEntities(params.entityKind);
   }
 
-  @Get(':entityKind/:id')
-  findOne(@Param() params) {
+  @Get(':delay/:entityKind/:id')
+  async findOne(@Param() params) {
+    await waiter(params.delay);
     return this.entityService.getEntity(params.entityKind, params.id);
   }
 
-  @Put(':entityKind/:id')
-  update(@Param() params, @Body() updateEntityDto: any) {
+  @Put(':delay/:entityKind/:id')
+  async update(@Param() params, @Body() updateEntityDto: any) {
+    await waiter(params.delay);
     return this.entityService.updateEntity(
       params.entityKind,
       params.id,
@@ -38,8 +44,9 @@ export class EntityController {
     );
   }
 
-  @Delete(':entityKind/:id')
-  remove(@Param() params) {
+  @Delete(':delay/:entityKind/:id')
+  async remove(@Param() params) {
+    await waiter(params.delay);
     return this.entityService.deleteEntity(params.entityKind, params.id);
   }
 }
