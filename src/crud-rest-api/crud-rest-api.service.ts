@@ -16,13 +16,22 @@ export class CrudRestApiService {
   findAll(entityKind: string) {
     const c = this.getEntityKind(entityKind);
     // console.log('c', c);
-
-    return c.entities;
+    if (c) {
+      return c.entities;
+    } else {
+      return [];
+    }
   }
 
-  // findOne(id: string) {
-  //   return `This action returns a #${id} entity`;
-  // }
+  findOne(entityKind: string, id: string) {
+    const k = this.getEntityKind(entityKind);
+    if (!k) {
+      return null;
+    }
+    return k.entities.find((x) => {
+      return x.id === id;
+    });
+  }
 
   // update(id: string, updateEntityDto: any) {
   //   return `This action updates a #${id} entity`;

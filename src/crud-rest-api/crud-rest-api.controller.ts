@@ -16,10 +16,10 @@ export class EntityController {
     return this.entityService.findAll(params.entityKind);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.entityService.findOne(+id);
-  // }
+  @Get(':entityKind/:id')
+  findOne(@Param() params) {
+    return this.entityService.findOne(params.entityKind, params.id);
+  }
 
   // @Put(':id')
   // update(@Param('id') id: string, @Body() updateEntityDto: any) {
