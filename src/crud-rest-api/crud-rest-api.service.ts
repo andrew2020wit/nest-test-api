@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { StatusMessageDto } from 'src/dto/status-message.dto';
 
 @Injectable()
 export class CrudRestApiService {
@@ -47,6 +48,22 @@ export class CrudRestApiService {
     map.forEach((value) => {
       result.push(value);
     });
+    return result;
+  }
+
+  deleteEntity(kind: string, id: string) {
+    const result = new StatusMessageDto('CrudRestApiService: deleteEntity');
+    const map = this.data.get(kind);
+    if (!map) {
+      result.message = `${kind} not exist`;
+      return result;
+    }
+    if (!map.get(id)) {
+      result.message = `${id} of ${kind} not exist`;
+      return result;
+    }
+    map.delete(id);
+    result.ok = true;
     return result;
   }
 }
