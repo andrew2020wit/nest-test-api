@@ -5,7 +5,7 @@ import { ResponseDto } from 'src/dto/response.dto';
 export class CrudRestApiService {
   data = new Map<string, Map<string, any>>();
   dataIndexCount = 1;
-  idPrefix = 'gid';
+  idPrefix = 'id-';
 
   constructor() {
     this.setEntity('user', '1', { id: '1', name: 'Bob', age: 14 });
@@ -105,6 +105,10 @@ export class CrudRestApiService {
 
   updateEntity(kind: string, id: string, value: any) {
     const result = new ResponseDto('CrudRestApiService: updateEntity');
+    if (!id) {
+      result.message = 'id is undefined';
+      return result;
+    }
     const map = this.data.get(kind);
     if (!map) {
       result.message = `${kind} not exist`;
