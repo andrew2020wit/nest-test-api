@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JWTEXPIRESIN, JWTSECRETKEY } from 'src/main';
-import { JwtAuthController } from './jwt-auth.controller';
+import { JwtAuthController } from './controller/jwt-auth.controller';
 import { JwtAuthService } from './jwt-auth.service';
 import { JwtUserService } from './jwt-user-service/jwt-user.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -19,9 +18,9 @@ import { LocalStrategy } from './strategies/local.strategy';
     }),
     JwtModule.register({
       //secret: '111',
-      secret: JWTSECRETKEY,
+      secret: '111',
       signOptions: {
-        expiresIn: JWTEXPIRESIN,
+        expiresIn: '36000s',
       },
     }),
   ],

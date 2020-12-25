@@ -13,3 +13,9 @@ http://localhost:3001/api/main/crud-rest/delay/entityName/id
 - post array of entity:
   http://localhost:3001/api/init-kind/crud-rest/entityName
   (entities must do not contain id)
+
+## JWT Authentication
+
+http://localhost:3001/api/jwt-auth/get-token-obj
+
+login/pw : bob/12, anna/12, admin/12
