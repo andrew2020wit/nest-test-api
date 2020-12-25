@@ -35,8 +35,11 @@ const users: AppUser[] = [
 @Injectable()
 export class JwtUserService {
   findOne(login): AppUser {
-    return users.find((user) => {
+    const user1 = users.find((user) => {
       return user.login === login;
     });
+    const user2 = new AppUser();
+    Object.assign(user2, user1);
+    return user2;
   }
 }

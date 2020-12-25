@@ -20,6 +20,7 @@ export class JwtAuthService {
     if (!user) {
       return null;
     }
+    console.log('validateUserForJWT', user);
     const areEqual = password === user.password;
     if (!areEqual) {
       return null;
