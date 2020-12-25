@@ -4,6 +4,9 @@ import { AppModule } from './app.module';
 
 const port = 3001;
 
+export const JWTSECRETKEY = 'tgw11111111111';
+export const JWTEXPIRESIN = '36000s';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
