@@ -16,6 +16,15 @@ http://localhost:3001/api/main/crud-rest/delay/entityName/id
 
 ## JWT Authentication
 
-http://localhost:3001/api/jwt-auth/get-token-obj
+### http://localhost:3001/api/jwt-auth/get-token
 
 login/pw : bob/12, anna/12, admin/12
+
+JWT payload: login, sub: id, role, fullName
+
+response: {access_token: token}
+
+### http://localhost:3001/api/jwt-auth/get-user-profile
+
+JwtAuthGuard
+class UserProfile { id: string; fullName: string; role: string;}

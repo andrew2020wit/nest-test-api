@@ -3,7 +3,10 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayloadExtDto } from './dto/jwt-payload-ext.dto';
 import { JwtPayloadDto } from './dto/jwt-payload.dto';
 import { JWTokenDTO } from './dto/token-object.dto';
-import { JwtUserService } from './jwt-user-service/jwt-user.service';
+import {
+  JwtUserService,
+  UserProfile,
+} from './jwt-user-service/jwt-user.service';
 
 @Injectable()
 export class JwtAuthService {
@@ -16,7 +19,7 @@ export class JwtAuthService {
     login: string,
     password: string,
   ): Promise<JwtPayloadDto> {
-    const user = this.jwtUserService.findOne(login);
+    const user = this.jwtUserService.findOneByLogin(login);
     if (!user) {
       return null;
     }
@@ -49,5 +52,9 @@ export class JwtAuthService {
         fullName: jwtPayloadExtDto.fullName,
       }),
     };
+  }
+
+  getUserProfile(userId: string): UserProfile {
+    return this.jwtUserService.getUserProfile(userId);
   }
 }
